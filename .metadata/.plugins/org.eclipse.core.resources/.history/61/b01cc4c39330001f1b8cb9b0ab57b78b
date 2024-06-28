@@ -1,0 +1,55 @@
+package com.restaurant.restaurant.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.restaurant.restaurant.dto.CreateOrderRequest;
+import com.restaurant.restaurant.entity.Food;
+import com.restaurant.restaurant.entity.OrderDetails;
+import com.restaurant.restaurant.entity.TableNo;
+import com.restaurant.restaurant.entity.Waiter;
+import com.restaurant.restaurant.service.ApiService;
+
+//@CrossOrigin(origins = { "http://10.0.2.2:8080", "http://localhost:3000" })
+@RestController
+@RequestMapping("/api")
+public class ApiController {
+
+	@Autowired
+	private ApiService apiService;
+
+	@PostMapping("/addFood")
+	public ResponseEntity<Food> addFood(@RequestBody Food food) {
+		Food savedFood = apiService.saveFood(food);
+		return new ResponseEntity<>(savedFood, HttpStatus.CREATED);
+	}
+
+	@PostMapping("/addTable")
+	public ResponseEntity<TableNo> addTable(@RequestBody TableNo table) {
+		TableNo savedTable = apiService.saveTable(table);
+		return new ResponseEntity<>(savedTable, HttpStatus.CREATED);
+	}
+
+	@PostMapping("/addWaiter")
+	public ResponseEntity<Waiter> addWaiter(@RequestBody Waiter waiter) {
+		Waiter savedWaiter = apiService.saveWaiter(waiter);
+		return new ResponseEntity<>(savedWaiter, HttpStatus.CREATED);
+	}
+
+	@PostMapping("/createOrder")
+    public ResponseEntity<OrderDetails> createOrder(@RequestBody CreateOrderRequest request) {
+        OrderDetails order = apiService.createOrder(request);
+        return new ResponseEntity<>(order, HttpStatus.CREATED);
+    }
+	
+	@GetMapping("/getPromoCodeList")
+	public List<Food> getFoodList() {
+		return foodRepository.findAllByPromocodeType(PromocodeType.Rental);
+	}
+
+}

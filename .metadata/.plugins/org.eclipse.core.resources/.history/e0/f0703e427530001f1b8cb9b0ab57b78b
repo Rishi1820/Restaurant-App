@@ -1,0 +1,13 @@
+package com.restaurant.restaurant.entity;
+
+public class Foods {
+	
+	private String foodId;
+	
+	private String foodName;
+	
+	private double price;
+	
+	private String foodCode;
+
+}

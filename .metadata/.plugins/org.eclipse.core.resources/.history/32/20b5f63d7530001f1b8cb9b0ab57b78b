@@ -1,0 +1,9 @@
+package com.restaurant.restaurant.entity;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class Table {
+
+}

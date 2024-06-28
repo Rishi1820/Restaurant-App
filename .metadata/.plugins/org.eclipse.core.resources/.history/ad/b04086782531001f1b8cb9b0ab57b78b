@@ -1,0 +1,86 @@
+package com.restaurant.restaurant.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.restaurant.restaurant.dto.CreateOrderRequest;
+import com.restaurant.restaurant.entity.Food;
+import com.restaurant.restaurant.entity.OrderDetails;
+import com.restaurant.restaurant.entity.TableNo;
+import com.restaurant.restaurant.entity.Waiter;
+import com.restaurant.restaurant.enums.OrderStatus;
+import com.restaurant.restaurant.enums.TableAndWaiterStatus;
+import com.restaurant.restaurant.repository.FoodRepository;
+import com.restaurant.restaurant.repository.OrderDetailsRepository;
+import com.restaurant.restaurant.repository.TableRepository;
+import com.restaurant.restaurant.repository.WaiterRepository;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class ApiService {
+
+	@Autowired
+	private FoodRepository foodRepository;
+
+	@Autowired
+	private OrderDetailsRepository orderDetailsRepository;
+
+	@Autowired
+	private TableRepository tableRepository;
+
+	@Autowired
+	private WaiterRepository waiterRepository;
+
+	public Food saveFood(Food food) {
+		return foodRepository.save(food);
+	}
+
+	public TableNo saveTable(TableNo table) {
+		table.setTableStatus(TableAndWaiterStatus.AVAILABLE);
+		return tableRepository.save(table);
+	}
+
+	public Waiter saveWaiter(Waiter waiter) {
+		waiter.setWaiterStatus(TableAndWaiterStatus.AVAILABLE);
+		return waiterRepository.save(waiter);
+	}
+
+	@Transactional
+    public OrderDetails createOrder(CreateOrderRequest request) {
+		
+        TableNo table = tableRepository.findById(request.getTableId())
+				.orElseThrow(() -> new RuntimeException("Table not found with ID: " + request.getTableId()));
+        Waiter waiter = waiterRepository.findById(request.getWaiterId())
+        		.orElseThrow(() -> new RuntimeException("Waiter not found with ID: " + request.getWaiterId()));
+
+        List<Food> foods = foodRepository.findAllById(request.getFoodIds());
+
+        if (foods.isEmpty()) {
+            throw new IllegalArgumentException("Food list cannot be empty");
+        }
+
+        double totalAmount = foods.stream().mapToDouble(Food::getPrice).sum();
+
+        OrderDetails order = new OrderDetails();
+        order.setInvoice("INV-" + System.currentTimeMillis());
+        order.setOrderDateTime(LocalDateTime.now());
+        order.setOrderStatus(OrderStatus.BOOKED);
+        order.setWaiter(waiter);
+        order.setTable(table);
+        order.setFoods(foods);
+        order.setTotalAmount(totalAmount);
+        order.setAmount(totalAmount);
+        table.setTableStatus(TableAndWaiterStatus.ENGAGED);
+        waiter.setWaiterStatus(TableAndWaiterStatus.ENGAGED);
+        
+        tableRepository.save(table);
+        waiterRepository.save(waiter);
+
+        return orderDetailsRepository.save(order);
+    }
+
+}

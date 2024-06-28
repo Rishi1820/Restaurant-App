@@ -1,0 +1,10 @@
+package com.restaurant.restaurant.entity;
+
+public class Foods {
+	
+	private String foodId;
+	
+	private String name;
+	
+
+}

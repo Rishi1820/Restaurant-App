@@ -1,0 +1,77 @@
+package com.restaurant.restaurant.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.restaurant.restaurant.dto.CreateOrderRequest;
+import com.restaurant.restaurant.entity.Food;
+import com.restaurant.restaurant.entity.OrderDetails;
+import com.restaurant.restaurant.entity.TableNo;
+import com.restaurant.restaurant.entity.Waiter;
+import com.restaurant.restaurant.repository.FoodRepository;
+import com.restaurant.restaurant.repository.OrderDetailsRepository;
+import com.restaurant.restaurant.repository.TableRepository;
+import com.restaurant.restaurant.repository.WaiterRepository;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class ApiService {
+
+	@Autowired
+	private FoodRepository foodRepository;
+
+	@Autowired
+	private OrderDetailsRepository orderDetailsRepository;
+
+	@Autowired
+	private TableRepository tableRepository;
+
+	@Autowired
+	private WaiterRepository waiterRepository;
+
+	public Food saveFood(Food food) {
+		return foodRepository.save(food);
+	}
+
+	public TableNo saveTable(TableNo table) {
+		return tableRepository.save(table);
+	}
+
+	public Waiter saveWaiter(Waiter waiter) {
+		return waiterRepository.save(waiter);
+	}
+
+	@Transactional
+    public OrderDetails createOrder(CreateOrderRequest request) {
+//        Optional<TableNo> table = tableRepository.findById(request.getTableId());
+//        Optional<Waiter> waiter = waiterRepository.findById(request.getWaiterId());
+        TableNo table = userRepository.findById(request.getTableId())
+				.orElseThrow(() -> new RuntimeException("Table not found with ID: " + request.getTableId()));
+        Waiter waiter = userRepository.findById(request.getWaiterId())
+        		.orElseThrow(() -> new RuntimeException("User not found with ID: " + request.getWaiterId()));
+//        if (table.isEmpty() || waiter.isEmpty()) {
+//            throw new IllegalArgumentException("Invalid table or waiter ID");
+//        }
+
+        List<Food> foods = foodRepository.findAllById(request.getFoodIds());
+
+        if (foods.isEmpty()) {
+            throw new IllegalArgumentException("Food list cannot be empty");
+        }
+
+        double totalAmount = foods.stream().mapToDouble(Food::getPrice).sum();
+
+        OrderDetails order = new OrderDetails();
+        order.setInvoice("INV-" + System.currentTimeMillis());
+        order.setOrderDateTime(LocalDateTime.now());
+        order.setOrderStatus(OrderStatus.BOOKED);
+        table.set
+        order.setWaiter(waiter.get());
+        order.setFoods(foods);
+        order.setTotalAmount(totalAmount);
+
+        return orderDetailsRepository.save(order);
+    }
+
+}

@@ -1,0 +1,6 @@
+package com.restaurant.restaurant.repository;
+
+public interface FoodsRepository {
+	@Repository
+	public interface CourierEbikeRepository extends JpaRepository<CourierEbike, Long> {
+}

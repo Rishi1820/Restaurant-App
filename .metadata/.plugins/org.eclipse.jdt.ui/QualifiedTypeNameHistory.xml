@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.entity.Order"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.repository.OrderRepository"/>
+    <fullyQualifiedTypeName name="org.hibernate.sql.ast.tree.from.TableReference"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.repository.TableRepository"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.repository.WaiterRepository"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.entity.Table"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.enums.TableStatus"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.entity.Foods"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.enums.OrderStatus"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.EnumType"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.dto.OrderRequestDto"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Table"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.entity.TableNo"/>
+    <fullyQualifiedTypeName name="com.restaurant.restaurant.entity.Waiter"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+</qualifiedTypeNameHistroy>

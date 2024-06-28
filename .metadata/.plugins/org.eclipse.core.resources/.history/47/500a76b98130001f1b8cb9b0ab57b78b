@@ -1,0 +1,14 @@
+package com.restaurant.restaurant.dto;
+
+import org.springframework.stereotype.Component;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Componentpublic class OrderRequestDto {
+	
+    private Long tableId;
+    private Long waiterId;
+    private List<Long> foodIds;
+
+}

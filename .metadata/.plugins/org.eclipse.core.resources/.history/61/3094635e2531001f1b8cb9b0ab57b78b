@@ -1,0 +1,11 @@
+package com.restaurant.restaurant.dto;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class PaymentRequest {
+	
+    private Long orderId;
+
+
+}

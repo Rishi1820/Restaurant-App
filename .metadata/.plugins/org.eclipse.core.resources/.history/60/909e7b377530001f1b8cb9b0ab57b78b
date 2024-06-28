@@ -1,0 +1,9 @@
+package com.restaurant.restaurant.entity;
+
+public class Waiter {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long vehicleId;
+
+}

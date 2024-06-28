@@ -1,0 +1,13 @@
+package com.restaurant.restaurant.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.restaurant.restaurant.entity.Foods;
+
+@Repository
+public interface FoodsRepository extends JpaRepository<Foods, Long> {
+
+public interface TableRepository extends JpaRepository<Foods, Long>{
+
+}

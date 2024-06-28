@@ -1,0 +1,6 @@
+package com.restaurant.restaurant.dto;
+
+
+public class OrderRequestDto {
+
+}

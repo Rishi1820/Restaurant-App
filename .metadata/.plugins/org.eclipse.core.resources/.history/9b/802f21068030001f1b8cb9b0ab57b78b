@@ -1,0 +1,51 @@
+package com.restaurant.restaurant.entity;
+
+import java.time.LocalDateTime;
+
+import com.restaurant.restaurant.enums.OrderStatus;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class OrderDetails {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long orderId;
+
+	private String invoice;
+
+	private LocalDateTime orderDateTime;
+
+	@Enumerated(EnumType.STRING)
+	private OrderStatus orderStatus;
+
+	@OneToOne
+	@JoinColumn(name = "table_id")
+	private TableNo table;
+
+	@OneToOne
+	@JoinColumn(name = "waiter_id")
+	private Waiter waiter;
+
+	@ManyToOne
+	@JoinColumn(name = "food_id")
+	private Food foods;
+	
+	private dou
+
+}

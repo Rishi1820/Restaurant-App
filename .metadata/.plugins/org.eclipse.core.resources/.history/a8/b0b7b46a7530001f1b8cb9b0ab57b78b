@@ -1,0 +1,25 @@
+package com.restaurant.restaurant.entity;
+
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class Foods {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long foodId;
+	private String foodId;
+
+	private String foodName;
+
+	private double price;
+
+	private String foodCode;
+
+}
